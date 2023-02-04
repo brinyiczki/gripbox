@@ -5,8 +5,6 @@
 
 - 📫 All of the info about me is avaliable here [https://sites.google.com/view/gripify/me](https://sites.google.com/view/gripify/me)
 
-- 💬 Ask me about **lua**
-
 
 <h3 align="left">Languages and Tools:</h3>
 <p align="left"> <a href="https://roblox.com/create" target="_blank" rel="noreferrer"> <img src="https://img.icons8.com/color/256/roblox-studio.png" alt="objectivec" width="40" height="40"/> </a> <a href="https://www.python.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="40" height="40"/> </a>
