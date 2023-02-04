@@ -1,5 +1,5 @@
 <h1 align="center">Hi 👋, I'm Grip</h1>
-<h3 align="center">A passionate Roblox developer</h3>
+<h3 align="center">Roblox developer</h3>
 
 - 🌱 I’m currently learning **Python**
 
