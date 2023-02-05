@@ -23,7 +23,7 @@ end
 
 
 
-UI_Functions.Ripple = function(Button, X, Y)
+GUTIL.Ripple = function(Button, X, Y)
 	coroutine.resume(coroutine.create(function()
 		
 		Button.ClipsDescendants = true
@@ -59,13 +59,13 @@ end
 
 
 
-UI_Functions.SetControls = function(Value: BoolValue)
+GUTIL.SetControls = function(Value: BoolValue)
 	local controls = require(game:GetService("Players").LocalPlayer.PlayerScripts.PlayerModule):GetControls()
 	controls:Enable(Value)
 end
 
 
-UI_Functions.SetCoreUI = function(Chat : BoolValue,PlayerList : BoolValue,Backpack : BoolValue)
+GUTIL.SetCoreUI = function(Chat : BoolValue,PlayerList : BoolValue,Backpack : BoolValue)
 	local StarterGui = game:GetService("StarterGui")
 	
 	StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat,Chat)
@@ -76,7 +76,7 @@ UI_Functions.SetCoreUI = function(Chat : BoolValue,PlayerList : BoolValue,Backpa
 end
 
 
-UI_Functions.SetFov = function(Number : NumberValue,Time : NumberValue)
+GUTIL.SetFov = function(Number : NumberValue,Time : NumberValue)
 	game:GetService("TweenService"):Create(game.Workspace.CurrentCamera, 
 
 	    TweenInfo.new(
@@ -91,7 +91,7 @@ UI_Functions.SetFov = function(Number : NumberValue,Time : NumberValue)
 end
 
 
-UI_Functions.SetBlur = function(Number : NumberValue,Time : NumberValue)
+GUTIL.SetBlur = function(Number : NumberValue,Time : NumberValue)
 	if not game.Lighting:FindFirstChild("Blur") then return warn("No blur found in Lightning") end
 	game:GetService("TweenService"):Create(game.Lighting.Blur, 
 
@@ -108,7 +108,7 @@ UI_Functions.SetBlur = function(Number : NumberValue,Time : NumberValue)
 end
 
 
-UI_Functions.SetDepthField = function(Number : NumberValue,Time : NumberValue)
+GUTIL.SetDepthField = function(Number : NumberValue,Time : NumberValue)
 	if not game.Lighting:FindFirstChild("DepthOfField") then return warn("No DOF found in Lightning") end
 	game:GetService("TweenService"):Create(game.Lighting.DepthOfField, 
 
@@ -125,7 +125,7 @@ UI_Functions.SetDepthField = function(Number : NumberValue,Time : NumberValue)
 end
 
 
-UI_Functions.Tween = function(Object : ObjectValue,Style : Enum.EasingStyle?,Table : UDim2,Time : NumberValue)
+GUTIL.Tween = function(Object : ObjectValue,Style : Enum.EasingStyle?,Table : UDim2,Time : NumberValue)
 
 	game:GetService("TweenService"):Create(Object, 
 
@@ -147,7 +147,7 @@ UI_Functions.Tween = function(Object : ObjectValue,Style : Enum.EasingStyle?,Tab
 end
 
 
-UI_Functions.SizeTween = function(Object : ObjectValue,Style : Enum.EasingStyle?,Table : UDim2,Time : NumberValue)
+GUTIL.SizeTween = function(Object : ObjectValue,Style : Enum.EasingStyle?,Table : UDim2,Time : NumberValue)
 
 	local SizeTween = Object:TweenSize(
 		UDim2.new(table.unpack(Table)),  -- endSize (required)
@@ -168,7 +168,7 @@ end
 
 
 
-UI_Functions.PlaySound = function(Name : StringValue)
+GUTIL.PlaySound = function(Name : StringValue)
 	for SoundName, Track in pairs(Sounds) do --Seperating Sound Name and it's ID from the table
 
 		if SoundName == Name then --Making sure that it will play the requested sound and other sound is not playing.
@@ -186,7 +186,7 @@ end
 
 
 
-UI_Functions.Prompt = function(Name : StringValue, State : BoolValue)
+GUTIL.Prompt = function(Name : StringValue, State : BoolValue)
 	local player = game:GetService("Players").LocalPlayer
 
 
