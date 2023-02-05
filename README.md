@@ -5,7 +5,7 @@
 
 - 📫 All of the info about me is avaliable here [sites.google.com/view/gripify](https://sites.google.com/view/gripify/me)
 
-- 💬 Contact about my portfolio at my discord **GripAll#1546**
+- 💬 Contact about my discord portfolio at my discord **GripAll#1546**
 
 
 <h3 align="left">Languages and Tools:</h3>
