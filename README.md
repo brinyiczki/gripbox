@@ -3,7 +3,7 @@
 
 - 🌱 I’m currently learning **Python**
 
-- 📫 All of the info about me is avaliable here [https://sites.google.com/view/gripify/me](https://sites.google.com/view/gripify/me)
+- 📫 All of the info about me is avaliable here [https://sites.google.com/view/gripify](https://sites.google.com/view/gripify/me)
 
 
 <h3 align="left">Languages and Tools:</h3>
