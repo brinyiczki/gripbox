@@ -66,7 +66,7 @@ end
 
 --This functions allows to enable or disable each coreUI
 GUTIL.SetCoreUI = function(Chat : BoolValue,PlayerList : BoolValue,Backpack : BoolValue)
-  if not Chat and not PlayerList and not Backpack then return warn("Give atleast 1 bool!") end
+      if Chat == nil and PlayerList == nil and  Backpack == nil then return warn("Give atleast 1 bool!") end
 	local StarterGui = game:GetService("StarterGui")
 	
         if Chat then
