@@ -93,13 +93,31 @@ end
 
 
 
+
+--This functions Tweens the FieldOfView in a specified number to a chosen amount 
+GUTIL.SetFov = function(Number : NumberValue,Time : NumberValue)
+	game:GetService("TweenService"):Create(game.Workspace.CurrentCamera, 
+
+	 TweenInfo.new(
+		Time or 1, -- Time
+		Enum.EasingStyle.Sine, -- EasingStyle
+		Enum.EasingDirection.InOut, -- EasingDirection
+		0, -- RepeatCount (when less than zero the tween will loop indefinitely)
+		false, -- Reverses (tween will reverse once reaching it's goal)
+		0), -- DelayTime 
+	--//Properties//--
+	{FieldOfView = Number}):Play()
+end
+
+
+
 --This functions Tweens the Blur in a specified number to a chosen amount 
 GUTIL.SetBlur = function(Number : NumberValue,Time : NumberValue)
 	if not game.Lighting:FindFirstChild("Blur") then return warn("No blur found in Lightning") end
 	game:GetService("TweenService"):Create(game.Lighting.Blur, 
 
-	    TweenInfo.new(
-		Time, -- Time
+	 TweenInfo.new(
+		Time or 1, -- Time
 		Enum.EasingStyle.Sine, -- EasingStyle
 		Enum.EasingDirection.InOut, -- EasingDirection
 		0, -- RepeatCount (when less than zero the tween will loop indefinitely)
@@ -107,7 +125,7 @@ GUTIL.SetBlur = function(Number : NumberValue,Time : NumberValue)
 		0), -- DelayTime 
 
 	--//Properties//--
-	{Size = Number}):Play()
+	{Size = Number or 0}):Play()
 end
 
 --This functions Tweens the DOF in a specified number to a chosen amount 
@@ -115,8 +133,8 @@ GUTIL.SetDepthField = function(Number : NumberValue,Time : NumberValue)
 	if not game.Lighting:FindFirstChild("DepthOfField") then return warn("No DOF found in Lightning") end
 	game:GetService("TweenService"):Create(game.Lighting.DepthOfField, 
 
-	    TweenInfo.new(
-		Time, -- Time
+	 TweenInfo.new(
+		Time or 1, -- Time
 		Enum.EasingStyle.Sine, -- EasingStyle
 		Enum.EasingDirection.InOut, -- EasingDirection
 		0, -- RepeatCount (when less than zero the tween will loop indefinitely)
@@ -130,83 +148,60 @@ end
 
 --This functions allows to tween Objects position you can customize it with easing style and so on
 --Udim2 table format must be {0,0,0,0} 
-GUTIL.Tween = function(Object : ObjectValue,Style : Enum.EasingStyle?,Table : UDim2,Time : NumberValue)
+GUTIL.Tween = function(Ingredient : GuiObject ,Table : UDim2 ,Time : number ,Style : Enum.EasingStyle)
+	
+	if not Ingredient then warn("No Ingredient to tween") return end
+	if not table then warn("No Table to process") return end
+	
+	game:GetService("TweenService"):Create(Ingredient,
 
-	game:GetService("TweenService"):Create(Object, 
-
-        TweenInfo.new(
-		Time, -- Time
-                Style, -- EasingStyle
-		Enum.EasingDirection.InOut, -- EasingDirection
+	 TweenInfo.new(
+		Time or 0.5, -- Time
+		Style or Enum.EasingStyle.Back, -- EasingStyle
+		Enum.EasingDirection.Out, -- EasingDirection
 		0, -- RepeatCount (when less than zero the tween will loop indefinitely)
 		false, -- Reverses (tween will reverse once reaching it's goal)
 		0), -- DelayTime 
 
 	--//Properties//--
+
+
+	{Position = Table}):Play()
+end
+
+
+GUTIL.SizeTween = function(Ingredient : GuiObject ,Table : UDim2 ,AddUp : number ,Time : number ,Style : Enum.EasingStyle)
+
+	if not Ingredient then warn("No Ingredient to Size Tween") return end
 	
-
-	{Position = UDim2.new(table.unpack(Table))}):Play()
-	wait(Time) --Wait for the Tween to end
-
-
-end
-
-
-GUTIL.SizeTween = function(Object : ObjectValue,Style : Enum.EasingStyle?,Table : UDim2,Time : NumberValue)
-
-	local SizeTween = Object:TweenSize(
-		UDim2.new(table.unpack(Table)),  -- endSize (required)
-		Enum.EasingDirection.InOut,    -- easingDirection (default Out)
-		Style,      -- easingStyle (default Quad)
-		Time,                          -- time (default: 1)
+	
+	local SizeTween = Ingredient:TweenSize(
+		AddUp and UDim2.new(0,AddUp,0,AddUp) + Table or Table ,  -- endSize (required)
+		Enum.EasingDirection.Out,    -- easingDirection (default Out)
+		Style or Enum.EasingStyle.Back,      -- easingStyle (default Quad)
+		Time or 0.5,                          -- time (default: 1)
 		true                       -- should this tween override ones in-progress? (default: false)
-		                    -- a function to call when the tween completes (default: nil)
+		-- a function to call when the tween completes (default: nil)
 	)
-
-
-	wait(Time) --Wait for the Tween to end
-
-
 end
-
-
-
-
---Plays a sound from the table you made
---Use the track sound what you gave in a table
-
-GUTIL.PlaySound = function(Name : StringValue)
-	for SoundName, Track in pairs(Sounds) do --Seperating Sound Name and it's ID from the table
-
-		if SoundName == Name then --Making sure that it will play the requested sound and other sound is not playing.
-			local Cloned = Track:Clone()
-			Cloned.Parent = SoundService
-			Cloned:Play()
-
-			Cloned.Ended:Connect(function() -- When the sound is ended.
-				Cloned:Destroy()
-			end)
-		end
-	end
-end
-
 
 
 --You can create one module which controls the ability to tween them out (close) or (open) them just by requiring this module
 --Or you can use this function to run anything else in the required module of the ui
 
-GUTIL.Prompt = function(Name : StringValue, State : BoolValue)
+GUTIL.Prompt = function(Hay : string, Needle : string , State : boolean)
 	local player = game:GetService("Players").LocalPlayer
+if not Hay then warn("No GUI name given") return end
+	
 
+	if player.PlayerGui:FindFirstChild(Hay) then --find if the gui exists
+		if player.PlayerGui:FindFirstChild(Hay):FindFirstChildWhichIsA("ModuleScript") then --module script exists?
+			local module = require(player.PlayerGui:FindFirstChild(Hay):FindFirstChildWhichIsA("ModuleScript")) --require the module which was found
 
-	if player.PlayerGui:FindFirstChild(Name) then --find if the gui exists
-		if player.PlayerGui:FindFirstChild(Name):FindFirstChildWhichIsA("ModuleScript") then --module script exists?
-			local module = require(player.PlayerGui:FindFirstChild(Name):FindFirstChildWhichIsA("ModuleScript")) --require the module which was found
-
-			if State == true then -- the bool you gave decides which function runs
-				module:TweenIn() -- it was true
+			if State == true or nil then -- the bool you gave decides which function runs
+				module:Open(Needle or "null") -- it was true
 			else
-				module:TweenOut() -- it was false
+				module:Close(Needle or "null") -- it was false
 			end
 		end
 	end
